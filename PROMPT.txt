@@ -1,0 +1,6 @@
+so now what's happening is I have kept Release as mandatory, and for program and object these 2 can be filled or not filled, when someone is selecting the program, and then selecting the object, it is still picking the program and not the object. Now I want a functionality like this, after selecting release, 
+Add a none value to both program and object which is selected by default, in case someone selecting program, then the object value must be kept at None, and whereas when someone is selecting object, program value automatically reset to None. 
+
+and so in the code, it can check which is selected, which combination it is satisfying, if both None, then only release needs to passed, that is else condition, whereas in case one is None, then the other can be passed as a value.
+
+Show only modified part not full code.

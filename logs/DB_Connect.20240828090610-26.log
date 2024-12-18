@@ -1,0 +1,18 @@
+2024-08-28 09:06:10,875 - teradata.udaexec - ERROR - Unable to create connection: {'method': 'odbc', 'system': 'your_system', 'username': 'c', 'password': 'XXXXXX'}
+Traceback (most recent call last):
+  File "C:\Users\rajat\AppData\Local\Programs\Python\Python39\lib\site-packages\teradata\udaexec.py", line 180, in connect
+    self, tdodbc.connect(queryBands=self.queryBands,
+  File "C:\Users\rajat\AppData\Local\Programs\Python\Python39\lib\site-packages\teradata\tdodbc.py", line 427, in __init__
+    connectParams["DRIVER"] = determineDriver(dbType, driver)
+  File "C:\Users\rajat\AppData\Local\Programs\Python\Python39\lib\site-packages\teradata\tdodbc.py", line 388, in determineDriver
+    raise InterfaceError(
+teradata.api.InterfaceError: ('DRIVER_NOT_FOUND', "No driver found for 'Teradata'.  Available drivers: SQL Server,Microsoft Access Driver (*.mdb, *.accdb),Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb),Microsoft Access Text Driver (*.txt, *.csv)")
+2024-08-28 09:06:10,879 - teradata.udaexec - ERROR - Unable to create connection: {'method': 'odbc', 'system': 'your_system', 'username': 'c', 'password': 'XXXXXX'}
+Traceback (most recent call last):
+  File "C:\Users\rajat\AppData\Local\Programs\Python\Python39\lib\site-packages\teradata\udaexec.py", line 180, in connect
+    self, tdodbc.connect(queryBands=self.queryBands,
+  File "C:\Users\rajat\AppData\Local\Programs\Python\Python39\lib\site-packages\teradata\tdodbc.py", line 427, in __init__
+    connectParams["DRIVER"] = determineDriver(dbType, driver)
+  File "C:\Users\rajat\AppData\Local\Programs\Python\Python39\lib\site-packages\teradata\tdodbc.py", line 388, in determineDriver
+    raise InterfaceError(
+teradata.api.InterfaceError: ('DRIVER_NOT_FOUND', "No driver found for 'Teradata'.  Available drivers: SQL Server,Microsoft Access Driver (*.mdb, *.accdb),Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb),Microsoft Access Text Driver (*.txt, *.csv)")

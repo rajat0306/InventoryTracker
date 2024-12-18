@@ -1,0 +1,2 @@
+Error occurred at 20240827_221620
+Error Details: Exception: ('DRIVER_NOT_FOUND', "No driver found with name 'Teradata'.  Available drivers: SQL Server,Microsoft Access Driver (*.mdb, *.accdb),Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb),Microsoft Access Text Driver (*.txt, *.csv)")

@@ -1,0 +1,9 @@
+2024-08-27 22:16:20,431 - teradata.udaexec - ERROR - Unable to create connection: {'method': 'odbc', 'system': 'TDPREP01', 'Authentication': 'LDAP', 'username': 'C131657', 'password': 'XXXXXX', 'driver': 'Teradata'}
+Traceback (most recent call last):
+  File "C:\Users\rajat\AppData\Local\Programs\Python\Python39\lib\site-packages\teradata\udaexec.py", line 180, in connect
+    self, tdodbc.connect(queryBands=self.queryBands,
+  File "C:\Users\rajat\AppData\Local\Programs\Python\Python39\lib\site-packages\teradata\tdodbc.py", line 427, in __init__
+    connectParams["DRIVER"] = determineDriver(dbType, driver)
+  File "C:\Users\rajat\AppData\Local\Programs\Python\Python39\lib\site-packages\teradata\tdodbc.py", line 378, in determineDriver
+    raise InterfaceError(
+teradata.api.InterfaceError: ('DRIVER_NOT_FOUND', "No driver found with name 'Teradata'.  Available drivers: SQL Server,Microsoft Access Driver (*.mdb, *.accdb),Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb),Microsoft Access Text Driver (*.txt, *.csv)")
