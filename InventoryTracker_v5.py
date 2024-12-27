@@ -361,16 +361,16 @@ class App:
             confirm_needed = self.data_object.validate_data(data)
             if confirm_needed is False:
                 self.display_message(self.data_object.message, "INFO")
-                self.submit_button.config(command=self.update_existing_records(data))
+                self.submit_button.config(command=self.update_existing_records)
             else:
                 self.display_message(self.data_object.message, "INFO")
 
-    def update_existing_records(self, data):
+    def update_existing_records(self):
         self.message_display.config(state=tk.NORMAL)
         self.message_display.delete("1.0", tk.END)
 
         # Proceed with data update
-        self.data_object.update_existing_data(data)
+        self.data_object.update_existing_data()
 
         message = self.data_object.getData()
         self.display_message(message, "INFO")

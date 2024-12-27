@@ -44,8 +44,7 @@ class Data:
 
     def validate_data(self, insert_data):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        raw_objects = insert_data.pop("Object", "")
-        objects = [obj.strip() for obj in raw_objects.replace("\n", ",").split(",") if obj.strip()]
+        objects = insert_data.pop("Object").split(",")
 
         self.message = ""
         self.combined_data = []
@@ -81,8 +80,8 @@ class Data:
             self.insert_or_update_data(self.combined_data)
             return True
     
-    def update_existing_data(self, insert_data):
-        """Update the existing records if the user confirms and handle newly added objects"""
+    def update_existing_data(self):
+        """Update the existing records if the user confirms"""
 
         self.message = ""
         if self.existing_records:
@@ -91,45 +90,9 @@ class Data:
         if self.new_records:
             self.insert_or_update_data(self.new_records, update_existing=False)
 
-        # Check if any objects were added/removed between submits
-        # Parse the current textbox input to get the updated list of objects
-        raw_objects = insert_data.pop("Object", "")
-        current_textbox_value = [obj.strip() for obj in raw_objects.replace("\n", ",").split(",") if obj.strip()]
-        current_objects = [obj.strip() for obj in current_textbox_value.replace("\n", ",").split(",") if obj.strip()]
-
-        # Identify objects that were added after the first submit
-        newly_added_objects = [
-            obj for obj in current_objects if obj not in [rec["Object"] for rec in self.existing_records]
-        ]
-
-        # Identify objects that were removed from the textbox
-        removed_objects = [
-            rec["Object"] for rec in self.existing_records if rec["Object"] not in current_objects
-        ]
-
-        # Handle newly added objects as new entries
-        for obj_name in newly_added_objects:
-            new_record = {
-                "Object": obj_name,
-                # Add other required fields for the new record here
-                "Sprint": self.sprint_value,
-                "Release": self.release_value,
-                "Team": self.team_value
-            }
-            self.new_records.append(new_record)
-
-        # Insert or update the new records
-        if newly_added_objects:
-            self.insert_or_update_data(self.new_records, update_existing=False)
-
-        # Log any removed objects
-        if removed_objects:
-            self.message += f"The following objects were removed and will not be updated: {', '.join(removed_objects)}\n"
-
         if not self.existing_records and not self.new_records:
             self.message += "No records to update or insert.\n"
 
-    
     def check_existing_record(self, record):
         """Check if records with the Same CID, Sprint, Release, Team and Object already exist."""
         try:
