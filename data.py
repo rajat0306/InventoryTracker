@@ -74,16 +74,56 @@ class Data:
                 self.message += f"Record found for Object {obj['Object']} inserted by {self.teradata_username} in " \
                     f"Sprint {obj['Sprint']} and Release {obj['Release']} by Team {obj['Team']}.\n"
             self.message += "If you want to update these records, please click Submit again.\n"
-            return False
-        else:
-            print("processing: ", self.combined_data)
-            self.insert_or_update_data(self.combined_data)
-            return True
+        
+        if self.new_records:
+            self.message += "Inserting new records:\n"
+            for obj in self.new_records:
+                self.message += f"Processing new Object: {obj['Object']} for Sprint {obj['Sprint']} and Release {obj['Release']}.\n"
+
+        return not self.existing_records  # Proceed only if there are no existing records
     
-    def update_existing_data(self):
+    def update_existing_data(self, new_texbox_content):
         """Update the existing records if the user confirms"""
 
         self.message = ""
+
+        remaining_existing_records = []
+        removed_existing_records = []
+        new_objects_in_textbox = []
+        if new_texbox_content:
+            for record in self.existing_records:
+                if record in new_texbox_content:
+                    print(record['Object'])
+                    remaining_existing_records.append(record['Object'])
+                else:
+                    removed_existing_records.append(record['Object'])
+            
+            if removed_existing_records:
+                self.message += "The following existing records were not updated:\n"
+                for obj in removed_existing_records:
+                    self.message += f"Object {obj['Object']} was removed and will not be updated.\n"
+            
+            if remaining_existing_records:
+                for i, obj in enumerate(self.existing_records):
+                    if obj['Object'] not in remaining_existing_records:
+                        self.existing_records.pop(i)
+            else:
+                self.existing_records = []
+
+            original_existing_records = [obj['Object'] for obj in self.combined_data]
+            for obj in new_texbox_content:
+                if obj not in original_existing_records:
+                    new_objects_in_textbox.append(obj)
+
+            if new_objects_in_textbox:
+                self.message += f"Processing old records, please add new records later.\n"
+        else:
+            if self.existing_records != []:
+                self.message += "The following existing records were not updated because they were removed from the textbox:\n"
+                for obj in self.existing_records:
+                    self.message += f"Object {obj} was removed and will not be updated.\n"
+                self.existing_records = []
+
         if self.existing_records:
             self.insert_or_update_data(self.existing_records, update_existing=True)
 

@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from data import Data
+import re
 
 class App:
     def __init__(self, root):
@@ -348,6 +349,11 @@ class App:
                 self.display_message(f"'{content}' is not a valid source system.\n", "ERROR")
                 all_filled = False
                 return 
+            elif self.labels_texts[i] == "Env":
+                if not re.match(r"^[A-Z][1-9]$", content):
+                    self.display_message("Invalid Env format. Env must be an uppercase letter followed by a digit (e.g., A1, B2).\n")
+                    all_filled = False
+                    return 
 
             data[self.labels_texts[i]] = content
 
@@ -363,11 +369,21 @@ class App:
                 self.display_message(self.data_object.message, "INFO")
                 self.submit_button.config(command=self.update_existing_records)
             else:
+                self.data_object.update_existing_data([])
                 self.display_message(self.data_object.message, "INFO")
 
     def update_existing_records(self):
         self.message_display.config(state=tk.NORMAL)
         self.message_display.delete("1.0", tk.END)
+
+        new_texbox_content = ''
+        # Rereading the data from the form
+        for i, entry in enumerate(self.entries):
+            if isinstance(entry, tk.Text):
+                new_texbox_content = entry.get("1.0", tk.END).strip()
+
+        new_texbox_content = [line.replace("\n","") for line in new_texbox_content.split(",") if line.strip()]
+        print(new_texbox_content)
 
         # Proceed with data update
         self.data_object.update_existing_data()
